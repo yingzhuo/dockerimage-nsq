@@ -24,7 +24,6 @@ RUN mkdir -p /opt && \
             ${NSQ_HOME}/bin/nsq_to_nsq \
             ${NSQ_HOME}/bin/nsqadmin \
             ${NSQ_HOME}/bin/nsqd \
-#            ${NSQ_HOME}/bin/nsqlookupd \
             ${NSQ_HOME}/bin/to_nsq
 
 ENV PATH=$PATH:${NSQ_HOME}/bin

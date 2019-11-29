@@ -5,7 +5,6 @@ MAINTAINER 应卓 yingzhor@gmail.com
 ENV \
     NSQ_HOME=/opt/nsq \
     NSQ_VERSION=v1.2.0 \
-    LOOKUPD_TCP_ADDRESS="nsqlookupd:4160" \
     DATA_PATH="${NSQ_HOME}/data"
 
 ARG DOWNLOAD_LINK="https://s3.amazonaws.com/bitly-downloads/nsq/nsq-1.2.0.linux-amd64.go1.12.9.tar.gz"
@@ -25,13 +24,12 @@ RUN mkdir -p /opt && \
             ${NSQ_HOME}/bin/nsq_to_http \
             ${NSQ_HOME}/bin/nsq_to_nsq \
             ${NSQ_HOME}/bin/nsqadmin \
-#            ${NSQ_HOME}/bin/nsqd \
             ${NSQ_HOME}/bin/nsqlookupd \
             ${NSQ_HOME}/bin/to_nsq && \
     mkdir -p ${DATA_PATH}
 
 ENV PATH=$PATH:${NSQ_HOME}/bin
 
-EXPOSE 4151
+EXPOSE 4150 4151 4152
 
 CMD ["docker-entrypoint.sh"]
