@@ -20,7 +20,7 @@ RUN mkdir -p /opt && \
 ENV \
     NSQ_VERSION=v1.2.0 \
     NSQ_HOME=/opt/nsq \
-    PATH=$PATH:$NSQ_HOME/bin
+    PATH=${PATH}:${NSQ_HOME}/bin
 
 VOLUME /opt/nsq/data
 
