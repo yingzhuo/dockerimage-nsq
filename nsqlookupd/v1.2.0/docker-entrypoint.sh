@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# --broadcast-address
-# 广播地址,对于lookupd来说,本参数可选
+set -e
+
 if [[ -z "${BROADCAST_ADDRESS}" ]]; then
     flag_broadcast_address=""
 else
