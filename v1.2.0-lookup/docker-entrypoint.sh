@@ -8,5 +8,5 @@ else
     flag_broadcast_address="--broadcast-address=${BROADCAST_ADDRESS}"
 fi
 
-exec nsqlookupd \
+exec /opt/nsq/bin/nsqlookupd \
     "${flag_broadcast_address}"

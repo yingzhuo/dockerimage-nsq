@@ -8,5 +8,5 @@ else
     flag_lookupd_http_address="--lookupd-http-address=${LOOKUPD_HTTP_ADDRESS}"
 fi
 
-exec nsqadmin \
+exec /opt/nsq/bin/nsqadmin \
     "$flag_lookupd_http_address"
