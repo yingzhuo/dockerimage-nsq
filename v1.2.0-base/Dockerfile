@@ -2,26 +2,22 @@ FROM busybox:1.31.1
 
 MAINTAINER 应卓 yingzhor@gmail.com
 
-RUN mkdir -p /opt && \
-    wget "https://s3.amazonaws.com/bitly-downloads/nsq/nsq-1.2.0.linux-amd64.go1.12.9.tar.gz" -O "/opt/nsq-1.2.0.linux-amd64.go1.12.9.tar.gz" && \
-    tar -zxf /opt/nsq-1.2.0.linux-amd64.go1.12.9.tar.gz -C /opt && \
-    mv /opt/nsq-1.2.0.linux-amd64.go1.12.9 /opt/nsq && \
-    rm -rf /opt/nsq-1.2.0.linux-amd64.go1.12.9.tar.gz && \
-    rm -rf /opt/nsq/bin/nsq_stat \
-           /opt/nsq/bin/nsq_tail \
-           /opt/nsq/bin/nsq_to_file \
-           /opt/nsq/bin/nsq_to_http \
-           /opt/nsq/bin/nsq_to_nsq \
-           /opt/nsq/bin/to_nsq && \
-    mkdir -p /opt/nsq/data && \
-    wget "https://github.com/yingzhuo/docktool/releases/download/v1.1.2/docktool-linux-amd64-1.1.2" -O /bin/docktool && \
-    chmod +x /bin/docktool
+ARG DOCKTOOL_VERSION=1.1.2
 
-ENV \
-    NSQ_VERSION=v1.2.0 \
-    NSQ_HOME=/opt/nsq \
-    PATH=${PATH}:${NSQ_HOME}/bin
+RUN mkdir -p /data && \
+    wget "https://s3.amazonaws.com/bitly-downloads/nsq/nsq-1.2.0.linux-amd64.go1.12.9.tar.gz" -O "nsq.tar.gz" && \
+    tar -zxf nsq.tar.gz -C . && \
+    mv ./nsq-1.2.0.linux-amd64.go1.12.9/bin/nsqadmin /bin/nsqadmin && \
+    mv ./nsq-1.2.0.linux-amd64.go1.12.9/bin/nsqd /bin/nsqd && \
+    mv ./nsq-1.2.0.linux-amd64.go1.12.9/bin/nsqlookupd /bin/nsqlookupd && \
+    rm -rf ./nsq.tar.gz ./nsq-1.2.0.linux-amd64.go1.12.9/ && \
+    wget https://github.com/yingzhuo/docktool/releases/download/v${DOCKTOOL_VERSION}/docktool-linux-amd64-${DOCKTOOL_VERSION}.tar.gz -O ./docktool.tar.gz && \
+    mkdir -p ./docktool/ && \
+    tar -zxf ./docktool.tar.gz -C ./docktool/ && \
+    cp ./docktool/docktool /bin/docktool && \
+    chmod +x /bin/docktool && \
+    rm -rf ./docktool/ ./docktool.tar.gz
 
-VOLUME /opt/nsq/data
+ENV NSQ_VERSION=v1.2.0
 
-CMD ["docktool", "sleep"]
+VOLUME /data

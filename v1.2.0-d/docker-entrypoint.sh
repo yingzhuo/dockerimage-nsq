@@ -15,7 +15,7 @@ else
     flag_broadcast_address="--broadcast-address=${BROADCAST_ADDRESS}"
 fi
 
-exec /opt/nsq/bin/nsqd \
-    --data-path=/opt/nsq/data \
+exec nsqd \
+    --data-path=/data \
     "$flag_lookupd_tcp_address" \
     "$flag_broadcast_address"

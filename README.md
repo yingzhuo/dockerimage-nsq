@@ -33,7 +33,7 @@ services:
     - "BROADCAST_ADDRESS=192.168.99.114"
     - "LOOKUPD_TCP_ADDRESS=nsqlookupd:4160"
     volumes:
-    - "${PWD}/data/nsqd/:/opt/nsq/data/"
+    - "${PWD}/data/:/data/"
 
   nsqadmin:
     image: "registry.cn-shanghai.aliyuncs.com/yingzhuo/nsq:v1.2.0-admin"
